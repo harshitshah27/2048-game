@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.game-board {
+  background-color: grey;
+  padding: 4px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 8px;
+  padding: 4px;
+  height: 100px;
+}
+
+.cell {
+  padding: 10px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.cell-2 {
+  background-color: whitesmoke;
+  font-weight: bold;
+}
+
+.cell-4 {
+  background-color: lightgray;
+  font-weight: bold;
+}
+
+.cell-8 {
+  background-color: papayawhip;
+  font-weight: bold;
+}
+
+.cell-16 {
+  background-color: pink;
+  font-weight: bold;
+}
+
+.cell-32 {
+  background-color: palevioletred;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-64 {
+  background-color: burlywood;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-128 {
+  background-color: goldenrod;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-256 {
+  background-color: gold;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-512 {
+  background-color: cyan;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-1024 {
+  background-color: gold;
+  color: white;
+  font-weight: bold;
+}
+
+.cell-2048 {
+  background-color: aquamarine;
+  color: white;
+  font-weight: bold;
+}
