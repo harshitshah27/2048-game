@@ -93,3 +93,9 @@
   color: white;
   font-weight: bold;
 }
+
+.game-over {
+  position: absolute;
+  top: 30%;
+  left: 44%;
+}

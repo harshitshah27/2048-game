@@ -19,6 +19,7 @@ const Cell = ({ number }) => {
 const GameController = () => {
   // hook for board
   const [board, updateBoard] = useState(generateRandom(getEmptyBoard()));
+  const [checkGameOver, setcheckGameOver] = useState(false);
 
   // check whether the game is over or user wins the game!
   const checkEndGame = () => {
@@ -26,6 +27,7 @@ const GameController = () => {
       console.log("You win!");
     } else if (isGameOver(board)) {
       console.log("Game over!");
+      setcheckGameOver(true);
     }
   };
 
@@ -86,20 +88,36 @@ const GameController = () => {
     };
   });
 
+  const onResetBoard = () => {
+    updateBoard(generateRandom(getEmptyBoard()));
+    setcheckGameOver(false);
+  };
+
   return (
-    <div className="board-container">
-      <div className="game-board">
-        {board.map((row, i) => {
-          return (
-            <div key={`row-${i}`} className="row">
-              {row.map((cell, j) => (
-                <Cell key={`cell-${i}-${j}`} number={cell} />
-              ))}
-            </div>
-          );
-        })}
+    <>
+      <div className="board-container">
+        <div
+          className="game-board"
+          style={{ opacity: checkGameOver ? 0.5 : 1 }}
+        >
+          {board.map((row, i) => {
+            return (
+              <div key={`row-${i}`} className="row">
+                {row.map((cell, j) => (
+                  <Cell key={`cell-${i}-${j}`} number={cell} />
+                ))}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+      {checkGameOver && (
+        <div className="game-over">
+          <h1>Game Over!!</h1>
+        </div>
+      )}
+      <button onClick={onResetBoard}>Reset your game</button>
+    </>
   );
 };
 
