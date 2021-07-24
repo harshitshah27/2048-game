@@ -9,6 +9,8 @@ import {
   isGameOver,
   checkWin,
 } from "Utils/boardLogic";
+import { saveLastUserMove } from "Actions/boardActions";
+import { connect } from "react-redux";
 
 const Cell = ({ number }) => {
   return (
@@ -16,7 +18,7 @@ const Cell = ({ number }) => {
   );
 };
 
-const GameController = () => {
+const GameController = (props) => {
   // hook for board
   const [board, updateBoard] = useState(generateRandom(getEmptyBoard()));
   const [checkGameOver, setcheckGameOver] = useState(false);
@@ -35,7 +37,7 @@ const GameController = () => {
   const onClickleft = () => {
     const newBoard = moveLeft(board);
     updateBoard(generateRandom(newBoard));
-    console.log(`updateBoard`, newBoard);
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -43,6 +45,7 @@ const GameController = () => {
   const onClickRight = () => {
     const newBoard = moveRight(board);
     updateBoard(generateRandom(newBoard));
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -50,6 +53,7 @@ const GameController = () => {
   const onClickUp = () => {
     const newBoard = moveUp(board);
     updateBoard(generateRandom(newBoard));
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -57,6 +61,7 @@ const GameController = () => {
   const onClickDown = () => {
     const newBoard = moveDown(board);
     updateBoard(generateRandom(newBoard));
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -93,6 +98,11 @@ const GameController = () => {
     setcheckGameOver(false);
   };
 
+  const UndoAction = () => {
+    console.log(`props.userLastMove`, props.userLastMove);
+    updateBoard(props.userLastMove);
+  };
+
   return (
     <>
       <div className="board-container">
@@ -117,8 +127,17 @@ const GameController = () => {
         </div>
       )}
       <button onClick={onResetBoard}>Reset your game</button>
+      <button onClick={UndoAction} disabled={props.userLastMove ? false : true}>
+        Undo
+      </button>
     </>
   );
 };
 
-export default GameController;
+const mapStateToProps = (state) => {
+  return {
+    userLastMove: state.board.lastMove,
+  };
+};
+
+export default connect(mapStateToProps, { saveLastUserMove })(GameController);
