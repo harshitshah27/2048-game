@@ -1,2 +1,4 @@
 // BOARD ACTIONS....
 export const SAVE_LAST_MOVE = "SAVE_LAST_MOVE";
+
+export const SAVE_CURRENT_MOVE = "SAVE_CURRENT_MOVE";

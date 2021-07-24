@@ -9,7 +9,7 @@ import {
   isGameOver,
   checkWin,
 } from "Utils/boardLogic";
-import { saveLastUserMove } from "Actions/boardActions";
+import { saveLastUserMove, saveUserCurrentMove } from "Actions/boardActions";
 import { connect } from "react-redux";
 
 const Cell = ({ number }) => {
@@ -20,7 +20,12 @@ const Cell = ({ number }) => {
 
 const GameController = (props) => {
   // hook for board
-  const [board, updateBoard] = useState(generateRandom(getEmptyBoard()));
+  console.log(`props.currentMove`, props.currentMove);
+  const [board, updateBoard] = useState(
+    props.userCurrentMove
+      ? props.userCurrentMove
+      : generateRandom(getEmptyBoard())
+  );
   const [checkGameOver, setcheckGameOver] = useState(false);
 
   // check whether the game is over or user wins the game!
@@ -38,6 +43,7 @@ const GameController = (props) => {
     const newBoard = moveLeft(board);
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
+    props.saveUserCurrentMove(newBoard);
     checkEndGame();
   };
 
@@ -46,6 +52,7 @@ const GameController = (props) => {
     const newBoard = moveRight(board);
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
+    props.saveUserCurrentMove(newBoard);
     checkEndGame();
   };
 
@@ -54,6 +61,7 @@ const GameController = (props) => {
     const newBoard = moveUp(board);
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
+    props.saveUserCurrentMove(newBoard);
     checkEndGame();
   };
 
@@ -62,6 +70,7 @@ const GameController = (props) => {
     const newBoard = moveDown(board);
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
+    props.saveUserCurrentMove(newBoard);
     checkEndGame();
   };
 
@@ -137,7 +146,11 @@ const GameController = (props) => {
 const mapStateToProps = (state) => {
   return {
     userLastMove: state.board.lastMove,
+    userCurrentMove: state.board.currentMove,
   };
 };
 
-export default connect(mapStateToProps, { saveLastUserMove })(GameController);
+export default connect(mapStateToProps, {
+  saveLastUserMove,
+  saveUserCurrentMove,
+})(GameController);
