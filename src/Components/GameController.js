@@ -37,7 +37,7 @@ const GameController = (props) => {
   const onClickleft = () => {
     const newBoard = moveLeft(board);
     updateBoard(generateRandom(newBoard));
-    props.saveLastUserMove(newBoard);
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -45,7 +45,7 @@ const GameController = (props) => {
   const onClickRight = () => {
     const newBoard = moveRight(board);
     updateBoard(generateRandom(newBoard));
-    props.saveLastUserMove(newBoard);
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -53,7 +53,7 @@ const GameController = (props) => {
   const onClickUp = () => {
     const newBoard = moveUp(board);
     updateBoard(generateRandom(newBoard));
-    props.saveLastUserMove(newBoard);
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
@@ -61,7 +61,7 @@ const GameController = (props) => {
   const onClickDown = () => {
     const newBoard = moveDown(board);
     updateBoard(generateRandom(newBoard));
-    props.saveLastUserMove(newBoard);
+    props.saveLastUserMove(board);
     checkEndGame();
   };
 
