@@ -11,7 +11,7 @@ import {
 } from "Utils/boardLogic";
 import { saveLastUserMove, saveUserCurrentMove } from "Actions/boardActions";
 import { connect } from "react-redux";
-
+import { FaUndoAlt, FaSync } from "react-icons/fa";
 const Cell = ({ number }) => {
   return (
     <div className={`cell cell-${number}`}>{number > 0 ? number : ""}</div>
@@ -177,12 +177,14 @@ const GameController = (props) => {
         </div>
       )}
       <div className="button-container">
-        <button onClick={onResetBoard}>Reset your game</button>
         <button
           onClick={UndoAction}
           disabled={props.userLastMove ? false : true}
         >
-          Undo
+          <FaUndoAlt />
+        </button>
+        <button onClick={onResetBoard}>
+          <FaSync />
         </button>
       </div>
     </>
