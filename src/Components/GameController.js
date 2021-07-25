@@ -119,11 +119,23 @@ const GameController = (props) => {
           className="game-board"
           style={{ opacity: checkGameOver ? 0.5 : 1 }}
         >
-          <h1 className="title">2048</h1>
-          <p className="subtitle">
-            Join the numbers and get{" "}
-            <span style={{ fontWeight: "bold" }}>2048 tile!</span>
-          </p>
+          <div className="header-container">
+            <div>
+              <h1 className="title">2048</h1>
+              <p className="subtitle">
+                Join the numbers and get{" "}
+                <span style={{ fontWeight: "bold" }}>2048 tile!</span>
+              </p>
+            </div>
+            <div className="score-card">
+              <h3 className="score-title">Score</h3>
+              <p className="score-subtitle">102</p>
+            </div>
+            <div className="score-card">
+              <h3 className="score-title">Best </h3>
+              <p className="score-subtitle">102</p>
+            </div>
+          </div>
           {board.map((row, i) => {
             return (
               <div key={`row-${i}`} className="row">
