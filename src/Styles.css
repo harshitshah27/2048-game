@@ -3,11 +3,10 @@
 }
 .App {
   font-family: sans-serif;
-  text-align: center;
 }
 
 .game-board {
-  background-color: grey;
+  background-color: white;
   padding: 4px;
   margin: auto;
   width: 50%;
@@ -20,6 +19,7 @@
   grid-gap: 8px;
   padding: 4px;
   height: 100px;
+  background: grey;
 }
 
 .cell {
@@ -98,4 +98,19 @@
   position: absolute;
   top: 20%;
   left: 44%;
+}
+
+.title {
+  color: grey;
+  font-weight: bold;
+  font-size: 50px;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: grey;
+}
+
+.button-container {
+  text-align: center;
 }

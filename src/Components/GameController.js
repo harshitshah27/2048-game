@@ -119,6 +119,11 @@ const GameController = (props) => {
           className="game-board"
           style={{ opacity: checkGameOver ? 0.5 : 1 }}
         >
+          <h1 className="title">2048</h1>
+          <p className="subtitle">
+            Join the numbers and get{" "}
+            <span style={{ fontWeight: "bold" }}>2048 tile!</span>
+          </p>
           {board.map((row, i) => {
             return (
               <div key={`row-${i}`} className="row">
@@ -135,10 +140,15 @@ const GameController = (props) => {
           <h1>Game Over!!</h1>
         </div>
       )}
-      <button onClick={onResetBoard}>Reset your game</button>
-      <button onClick={UndoAction} disabled={props.userLastMove ? false : true}>
-        Undo
-      </button>
+      <div className="button-container">
+        <button onClick={onResetBoard}>Reset your game</button>
+        <button
+          onClick={UndoAction}
+          disabled={props.userLastMove ? false : true}
+        >
+          Undo
+        </button>
+      </div>
     </>
   );
 };
