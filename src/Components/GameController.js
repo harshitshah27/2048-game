@@ -181,10 +181,10 @@ const GameController = (props) => {
           onClick={UndoAction}
           disabled={props.userLastMove ? false : true}
         >
-          <FaUndoAlt />
+          <FaUndoAlt size="20px" />
         </button>
         <button onClick={onResetBoard}>
-          <FaSync />
+          <FaSync size="20px" />
         </button>
       </div>
     </>
