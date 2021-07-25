@@ -12,6 +12,8 @@ import {
 import { saveLastUserMove, saveUserCurrentMove } from "Actions/boardActions";
 import { connect } from "react-redux";
 import { FaUndoAlt, FaSync, FaRedoAlt } from "react-icons/fa";
+
+// UI for cell
 const Cell = ({ number }) => {
   return (
     <div className={`cell cell-${number}`}>{number > 0 ? number : ""}</div>
@@ -112,19 +114,24 @@ const GameController = (props) => {
     };
   });
 
+  // on reset board
   const onResetBoard = () => {
     updateBoard(generateRandom(getEmptyBoard()));
     setcheckGameOver(false);
     props.saveUserCurrentMove(board);
   };
 
+  // on undo click
   const UndoAction = () => {
     updateBoard(props.userLastMove);
   };
+
+  // on redo click
   const RedoAction = () => {
     updateBoard(props.userCurrentMove);
   };
 
+  // calculate Score of board
   const calculateScore = () => {
     const newArray = Array.prototype.concat.apply([], board);
     const sum = newArray.reduce((a, b) => a + b, 0);
@@ -140,6 +147,7 @@ const GameController = (props) => {
       localStorage.setItem("bestScore", leadScore);
     }
   };
+
   return (
     <>
       <div className="board-container">
