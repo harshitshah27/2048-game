@@ -106,6 +106,7 @@ const GameController = (props) => {
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
     calculateScore();
+    props.saveUserCurrentMove(board);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -114,6 +115,7 @@ const GameController = (props) => {
   const onResetBoard = () => {
     updateBoard(generateRandom(getEmptyBoard()));
     setcheckGameOver(false);
+    props.saveUserCurrentMove(board);
   };
 
   const UndoAction = () => {
