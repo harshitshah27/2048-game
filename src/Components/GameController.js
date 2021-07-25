@@ -20,13 +20,17 @@ const Cell = ({ number }) => {
 
 const GameController = (props) => {
   // hook for board
-  console.log(`props.currentMove`, props.currentMove);
+  const leadScore = localStorage.getItem("bestScore");
   const [board, updateBoard] = useState(
     props.userCurrentMove
       ? props.userCurrentMove
       : generateRandom(getEmptyBoard())
   );
   const [checkGameOver, setcheckGameOver] = useState(false);
+  const [currentScore, setcurrentScore] = useState(0);
+  const [bestScore, setbestScore] = useState(
+    leadScore ? leadScore : currentScore
+  );
 
   // check whether the game is over or user wins the game!
   const checkEndGame = () => {
@@ -44,6 +48,7 @@ const GameController = (props) => {
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
     props.saveUserCurrentMove(newBoard);
+    calculateScore();
     checkEndGame();
   };
 
@@ -53,6 +58,7 @@ const GameController = (props) => {
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
     props.saveUserCurrentMove(newBoard);
+    calculateScore();
     checkEndGame();
   };
 
@@ -62,6 +68,7 @@ const GameController = (props) => {
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
     props.saveUserCurrentMove(newBoard);
+    calculateScore();
     checkEndGame();
   };
 
@@ -71,6 +78,7 @@ const GameController = (props) => {
     updateBoard(generateRandom(newBoard));
     props.saveLastUserMove(board);
     props.saveUserCurrentMove(newBoard);
+    calculateScore();
     checkEndGame();
   };
 
@@ -97,6 +105,7 @@ const GameController = (props) => {
   // on load add key event handlers
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
+    calculateScore();
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -112,6 +121,18 @@ const GameController = (props) => {
     updateBoard(props.userLastMove);
   };
 
+  const calculateScore = () => {
+    const newArray = Array.prototype.concat.apply([], board);
+    const sum = newArray.reduce((a, b) => a + b, 0);
+    setcurrentScore(sum);
+    if (currentScore > leadScore) {
+      setbestScore(currentScore);
+      localStorage.setItem("bestScore", currentScore);
+    } else {
+      setbestScore(leadScore);
+      localStorage.setItem("bestScore", leadScore);
+    }
+  };
   return (
     <>
       <div className="board-container">
@@ -119,11 +140,23 @@ const GameController = (props) => {
           className="game-board"
           style={{ opacity: checkGameOver ? 0.5 : 1 }}
         >
-          <h1 className="title">2048</h1>
-          <p className="subtitle">
-            Join the numbers and get{" "}
-            <span style={{ fontWeight: "bold" }}>2048 tile!</span>
-          </p>
+          <div className="header-container">
+            <div>
+              <h1 className="title">2048</h1>
+              <p className="subtitle">
+                Join the numbers and get{" "}
+                <span style={{ fontWeight: "bold" }}>2048 tile!</span>
+              </p>
+            </div>
+            <div className="score-card">
+              <h3 className="score-title">Score</h3>
+              <p className="score-subtitle">{currentScore}</p>
+            </div>
+            <div className="score-card">
+              <h3 className="score-title">Best </h3>
+              <p className="score-subtitle">{bestScore}</p>
+            </div>
+          </div>
           {board.map((row, i) => {
             return (
               <div key={`row-${i}`} className="row">
