@@ -11,7 +11,7 @@ import {
 } from "Utils/boardLogic";
 import { saveLastUserMove, saveUserCurrentMove } from "Actions/boardActions";
 import { connect } from "react-redux";
-
+import { FaUndoAlt, FaSync, FaRedoAlt } from "react-icons/fa";
 const Cell = ({ number }) => {
   return (
     <div className={`cell cell-${number}`}>{number > 0 ? number : ""}</div>
@@ -106,6 +106,7 @@ const GameController = (props) => {
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
     calculateScore();
+    props.saveUserCurrentMove(board);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
@@ -114,11 +115,14 @@ const GameController = (props) => {
   const onResetBoard = () => {
     updateBoard(generateRandom(getEmptyBoard()));
     setcheckGameOver(false);
+    props.saveUserCurrentMove(board);
   };
 
   const UndoAction = () => {
-    console.log(`props.userLastMove`, props.userLastMove);
     updateBoard(props.userLastMove);
+  };
+  const RedoAction = () => {
+    updateBoard(props.userCurrentMove);
   };
 
   const calculateScore = () => {
@@ -177,13 +181,30 @@ const GameController = (props) => {
         </div>
       )}
       <div className="button-container">
-        <button onClick={onResetBoard}>Reset your game</button>
-        <button
-          onClick={UndoAction}
-          disabled={props.userLastMove ? false : true}
-        >
-          Undo
-        </button>
+        <div>
+          <button
+            onClick={UndoAction}
+            disabled={props.userLastMove ? false : true}
+          >
+            <FaUndoAlt size="20px" />
+            <div> Undo</div>
+          </button>
+        </div>
+        <div style={{ paddingLeft: 20 }}>
+          <button onClick={onResetBoard}>
+            <FaSync size="20px" />
+            <div> Reset</div>
+          </button>
+        </div>
+        <div style={{ paddingLeft: 20 }}>
+          <button
+            onClick={RedoAction}
+            disabled={props.userCurrentMove ? false : true}
+          >
+            <FaRedoAlt size="20px" />
+            <div>Redo</div>
+          </button>
+        </div>
       </div>
     </>
   );
