@@ -125,7 +125,10 @@ const GameController = (props) => {
     const newArray = Array.prototype.concat.apply([], board);
     const sum = newArray.reduce((a, b) => a + b, 0);
     setcurrentScore(sum);
-    if (currentScore > leadScore) {
+    if (!leadScore) {
+      setbestScore(currentScore);
+      localStorage.setItem("bestScore", currentScore);
+    } else if (currentScore > leadScore) {
       setbestScore(currentScore);
       localStorage.setItem("bestScore", currentScore);
     } else {
